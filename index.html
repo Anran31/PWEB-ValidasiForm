@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Belajar Form Validation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+
+<body style="background-color: #023880;">
+    <div class="container text-center text-white my-3">
+        <h1>Form Status Vaksin Mahasiswa FTEIC ITS</h1>
+    </div>
+    <div class="container bg-white py-3">
+        <form name="formPendaftaran" action="daftar.php" method="post" onsubmit="return validateForm()">
+            <div class="mb-3">
+                <label class="form-label">Nama Mahasiswa</label>
+                <input type="text" name="nama" placeholder="Nama lengkap" class="form-control" maxlength="40"
+                    minlength="3">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">NRP Mahasiswa</label>
+                <input type="text" name="nrp" placeholder="NRP" class="form-control" number>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" name="email" placeholder="Email Aktif" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Domisili</label>
+                <input type="text" name="domisili" placeholder="Domisili saat ini" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Departemen</label>
+                <select name="departemen" class="form-select">
+                    <option selected disabled>Pilih Departemen</option>
+                    <option value="1">Teknik Elektro</option>
+                    <option value="2">Teknik Biomedik</option>
+                    <option value="3">Teknik Komputer</option>
+                    <option value="4">Informatika</option>
+                    <option value="5">Sistem Informasi</option>
+                    <option value="6">Teknologi Informasi</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Dosis Vaksin ke</label>
+                <select name="dosis" class="form-select">
+                    <option selected disabled>Pilih Dosis Vaksin</option>
+                    <option value="0">Belum Vaksin</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+
+    <script>
+        function isNumeric(str) {
+            if (typeof str != "string") return false // we only process strings!  
+            return !isNaN(str) &&
+                // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
+                !isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
+        }
+
+        function validateForm() {
+            if (document.forms["formPendaftaran"]["nama"].value == "") {
+                alert("Nama Tidak Boleh Kosong");
+                document.forms["formPendaftaran"]["nama"].focus();
+                return false;
+            }
+            if (document.forms["formPendaftaran"]["nrp"].value == "") {
+                alert("NRP Tidak Boleh Kosong");
+                document.forms["formPendaftaran"]["nrp"].focus();
+                return false;
+            }
+            console.log(document.forms["formPendaftaran"]["nrp"].value);
+            if (!isNumeric(document.forms["formPendaftaran"]["nrp"].value)) {
+                alert("NRP harus berisi angka");
+                document.forms["formPendaftaran"]["nrp"].focus();
+                return false;
+            }
+            if (document.forms["formPendaftaran"]["email"].value == "") {
+                alert("Email Tidak Boleh Kosong");
+                document.forms["formPendaftaran"]["email"].focus();
+                return false;
+            }
+            if (document.forms["formPendaftaran"]["domisili"].value == "") {
+                alert("Masukkan Domisili anda saat ini");
+                document.forms["formPendaftaran"]["domisili"].focus();
+                return false;
+            }
+            if (document.forms["formPendaftaran"]["departemen"].selectedIndex < 1) {
+                alert("Pilih Departemen.");
+                document.forms["formPendaftaran"]["departemen"].focus();
+                return false;
+            }
+            console.log(document.forms["formPendaftaran"]["dosis"].selectedIndex);
+            if (document.forms["formPendaftaran"]["dosis"].selectedIndex < 1) {
+                alert("Pilih Dosis Vaksin.");
+                document.forms["formPendaftaran"]["dosis"].focus();
+                return false;
+            }
+        }
+    </script>
+</body>
+
+</html>
